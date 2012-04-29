@@ -17,6 +17,28 @@
 		<script src="js/vendor/bootstrap-datepicker.js"></script> 
 		<script src="js/vendor/backbone.min.js"></script> 
 
+    
+    <!-- models: -->
+    <script src="js/Category.js"></script> 
+
+    <!-- views: -->
+    <script src="js/CategoryView.js"></script> 
+
+    <script type="text/template" id="categoryView">
+      <form class="form-horizontal">
+        <div class="control-group">
+          <label>new category:</label>
+          <input type="text" class="category_name" ></input>
+          <button type="submit" class="category_add btn btn-primary" >Add</button>
+        </div>
+        <ul class="categories">
+          
+        </ul>
+      </form>
+    
+    </script>
+
+
   </head> 
  
   <body>
@@ -33,7 +55,7 @@
 	</div>
 	<div class="container-fluid">
 			<section class="row" style="margin-top: 40px;">
-        <div id="swivel"> 
+        <div id="app"> 
 				</div>
 			</section>
 	  	<footer> 
@@ -42,13 +64,12 @@
     </div> <!-- /container -->
     <script>
       $(function() {
-        $(".searchform").submit(function(e) {
-          e.preventDefault();
-          
-          load($("input[name='term']").val().replace(' ','+'));
-          $("input[name='term']").attr("disabled","disabled");
-        });
+        window.categories = new CategoryCollection();
+        category = new CategoryView();
+        $("#app").html(category.render().el);
+      
       });
     </script>
+
 		</body> 
 </html>
