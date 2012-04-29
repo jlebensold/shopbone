@@ -1,0 +1,13 @@
+development:
+  host: localhost
+  database: shopbone 
+  logger: false 
+test:
+  host: localhost
+  database: shopbone_test
+  logger: false 
+
+# set these environment variables on your prod server
+production:
+  host: localhost
+  database: shopbone

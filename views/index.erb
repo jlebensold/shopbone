@@ -1,0 +1,54 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+  <head> 
+    <meta charset="utf-8"> 
+    <title>Shopbone</title> 
+    <meta name="description" content=""> 
+    <meta name="author" content=""> 
+
+    <!-- Le styles --> 
+    <link rel="stylesheet" href="/css/bootstrap.css" type="text/css" media="screen" /> 
+    <link rel="stylesheet" href="/css/datepicker.css" type="text/css" media="screen"/>
+
+
+		<script src="js/vendor/jquery-1.7.2.min.js"></script> 
+		<script src="js/vendor/underscore.min.js"></script> 
+		<script src="js/vendor/bootstrap.min.js"></script> 
+		<script src="js/vendor/bootstrap-datepicker.js"></script> 
+		<script src="js/vendor/backbone.min.js"></script> 
+
+  </head> 
+ 
+  <body>
+	<div class="navbar navbar-fixed-top"> 
+      <div class="navbar-inner">
+		 	<a class="brand" href="#">Shopbone</a>
+	    <div class="container"> 
+
+	      <ul class="nav"> 
+	        <li class="active"><a href="#">About</a></li> 
+        </ul>
+      </div>  
+	  </div> 
+	</div>
+	<div class="container-fluid">
+			<section class="row" style="margin-top: 40px;">
+        <div id="swivel"> 
+				</div>
+			</section>
+	  	<footer> 
+      </footer> 
+	 
+    </div> <!-- /container -->
+    <script>
+      $(function() {
+        $(".searchform").submit(function(e) {
+          e.preventDefault();
+          
+          load($("input[name='term']").val().replace(' ','+'));
+          $("input[name='term']").attr("disabled","disabled");
+        });
+      });
+    </script>
+		</body> 
+</html>

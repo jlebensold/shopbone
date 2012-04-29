@@ -1,0 +1,12 @@
+.bucketcontainer {
+	stroke: #CCC;
+
+  fill: #FAFAFA;
+  stroke-width: 1.5px;
+
+}
+.buckettext {
+  color: #000;
+  font-size: 15px;
+  text-anchor: middle;
+}
