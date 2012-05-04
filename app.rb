@@ -64,8 +64,8 @@ end
 
 get '/' do
 #  Category.delete_all()
-  ShopItem.delete_all()
-  ShoppingList.delete_all()
+#  ShopItem.delete_all()
+#  ShoppingList.delete_all()
 
 
 #  c = Category.new({name: "Home Hardware"})
