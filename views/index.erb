@@ -31,7 +31,7 @@
           <input type="text" class="category_name" ></input>
           <button type="submit" class="category_add btn btn-primary" >Add</button>
         </div>
-        <ul class="categories">
+        <ul class="categories span3">
           
         </ul>
       </form>
@@ -65,7 +65,7 @@
     <script>
       $(function() {
         window.categories = new CategoryCollection();
-        category = new CategoryView();
+        category = new CategoryView({collection: window.categories });
         $("#app").html(category.render().el);
       
       });
