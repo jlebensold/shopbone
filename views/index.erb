@@ -25,16 +25,28 @@
     <script src="js/CategoryView.js"></script> 
 
     <script type="text/template" id="categoryView">
-      <form class="form-horizontal">
-        <div class="control-group">
-          <label>new category:</label>
-          <input type="text" class="category_name" ></input>
-          <button type="submit" class="category_add btn btn-primary" >Add</button>
-        </div>
-        <ul class="categories span3">
-          
-        </ul>
-      </form>
+     <div class="modal-header">
+        <button class="close" data-dismiss="modal">×</button>
+        <h3>Manage Categories</h3>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal">
+          <div class="control-group">
+            <label>new category:</label>
+            <input type="text" class="category_name" ></input>
+            <button type="submit" class="category_add btn btn-primary" >Add</button>
+          </div>
+          <ul class="categories span3">
+            
+          </ul>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn">Close</a>
+      </div>
+
+
+
     
     </script>
 
@@ -62,11 +74,16 @@
       </footer> 
 	 
     </div> <!-- /container -->
+
+
+    <div class="modal fade hide" id="categorymodal"></div>
+
+
     <script>
       $(function() {
         window.categories = new CategoryCollection();
         category = new CategoryView({collection: window.categories });
-        $("#app").html(category.render().el);
+        $("#categorymodal").html(category.render().el);
       
       });
     </script>
