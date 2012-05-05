@@ -35,6 +35,11 @@ window.ShoppingList = Backbone.Collection.extend({
         categories.push({item: i.get('name'), category: i.get('category').get('name')});
     });
     return _.uniq(categories,false,function(i) { return i.item });
+  },
+
+  getCategory: function(productName) {
+    var r = _.find(this.productCategories(),function(i) { return i.item == productName });
+    return (r) ? r.category : '';
   }
 });
 window.ShoppingList.prototype.comparator = function(item) {

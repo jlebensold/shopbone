@@ -15,7 +15,9 @@ window.ShoppingView = Backbone.View.extend({
   addToList: function() {
     var items = _.compact($(this.el).find('.listbox').val().split('\n'));
     _.each(items,function(i) {
-      this.collection.create({name: i , category: null});
+      var c = this.options.categories.where({name : this.collection.getCategory(i) });
+      var category = (c.length > 0) ? c[0] : null;
+      this.collection.create({name: i , category: category});
     },this);
   },
 
