@@ -10,7 +10,6 @@ window.ShoppingView = Backbone.View.extend({
     this.collection.bind('add',this.render);
     this.collection.fetch();
     this.options.categories.bind('all',this.render);
-//    this.collection.create({name: "pickles"});
   },
 
   addToList: function() {
@@ -32,7 +31,7 @@ window.ShoppingView = Backbone.View.extend({
   render: function() {
     $(this.el).html($(this.template).html());
     var l = $(this.el).find(".shoppinglist");
-    this.collection.each(function(i) {
+    this.collection.toBuy().each(function(i) {
       this.shopItemView(i);
     },this);
     return this;

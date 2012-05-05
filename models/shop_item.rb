@@ -4,7 +4,6 @@ class ShopItem
 
 	field :version, type: Integer
   field :name, type: String 
-  field :quantity, type: Integer
-
+  field :purchased, type: Boolean
   embeds_one :category
 end

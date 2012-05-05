@@ -6,7 +6,8 @@ window.ShopItem = Backbone.Model.extend({
 
   defaults: function() {
     return {
-      category: null 
+      category: null,
+      purchased: false
     };
   },
 
@@ -20,5 +21,9 @@ window.ShopItem = Backbone.Model.extend({
 
 window.ShoppingList = Backbone.Collection.extend({
   model: ShopItem,
-  url: '/shopitems'
+  url: '/shopitems',
+
+  toBuy: function() {
+    return new ShoppingList(this.where({purchased: false}));
+  }
 });
