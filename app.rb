@@ -7,11 +7,6 @@ get '/categories' do
   Category.find(:all).to_json()
 end
 
-get '/shoppinglists' do
-  content_type :json
-  ShoppingList.find(:all).to_json()
-end
-
 get '/shopitems' do
   content_type :json
   ShopItem.find(:all).to_json()
@@ -20,18 +15,33 @@ end
 # CREATE
 post '/categories' do 
   content_type :json
-  Category.new(JSON.parse(request.body.read)).save().to_json()
+  c = Category.new(JSON.parse(request.body.read))
+  c.save()
+  c.to_json()
 end
 
 post '/shopitems' do 
   content_type :json
-  ShopItem.new(JSON.parse(request.body.read)).save().to_json()
+  si = ShopItem.new(JSON.parse(request.body.read));
+  si.save()
+  si.to_json()
 end
 
-post '/shoppinglists' do 
+# UPDATE 
+put '/:type/:id' do
   content_type :json
-  ShoppingList.new(JSON.parse(request.body.read)).save().to_json()
+  case params[:type]
+  when "shopitem"
+      si = ShopItem.find(params[:id])
+      params = JSON.parse(request.body.read)
+      si.category = nil
+      si.update_attributes(params)
+      si.save()
+      return si.to_json()
+  end
+  return {}.to_json()
 end
+
 
 # DELETE
 delete '/:type/:id' do
@@ -41,8 +51,6 @@ delete '/:type/:id' do
       return ShopItem.find(params[:id]).destroy().to_json()
   when "category"
       return Category.find(params[:id]).destroy().to_json()
-  when "shoppinglist"
-      return ShoppingList.find(params[:id]).destroy().to_json()
   end
   return {}.to_json()
 end
@@ -55,8 +63,6 @@ get '/:type/:id' do
       return ShopItem.find(params[:id]).to_json()
   when "category"
       return Category.find(params[:id]).to_json()
-  when "shoppinglist"
-      return ShoppingList.find(params[:id]).to_json()
   end
   return {}.to_json()
 end

@@ -54,24 +54,33 @@
       <textarea class="listbox"></textarea>
       <button class="addtolist btn btn-primary">Add to list</button> 
     </div>
-    <ul class="shoppinglist">
-    </ul>
+    <table class="table table-striped">
+      <tbody class="shoppinglist">
+      </tbody>
+    </table>
     </script>
     
     <script type="text/template" id="shopitemView">
-      <%%= model.get('name') %>
+      <td class="span3"> 
 
-      <div class="btn-group">
-        <a class="btn-mini dropdown-toggle btn-success" data-toggle="dropdown" href="#">
-          <%%= (model.get('category')) ? model.get('category').get('name') : 'no category' %>  
+      <div class="btn-group"> 
+        <a class="delete btn btn-danger" href="#">x</a>
+        <a class="btn " href="#"><i class="icon-star-empty "></i></a>
+        <a class="btn dropdown-toggle btn-primary" data-toggle="dropdown" href="#">
+          <%%= (model.get('category') && model.get('category').get('name').length > 0) ? model.get('category').get('name') : 'no category' %>  
         </a>
         <ul class="dropdown-menu">
+          <%% if (categories != undefined) { %>
           <%% categories.each(function(c) { %>
-              <li><a href="#"><%%= c.get('name') %></a></li>
-          <%% },this) %>
+              <li><a data-id="<%%= c.get('_id') %>" href="#"><%%= c.get('name') %></a></li>
+              <%% },this) %>
+          <%% } %>
         </ul>
       </div>
-
+      </td>
+      <td>
+        <p><%%= model.get('name') %></p>
+      </td>
     </script>
 
 
@@ -84,7 +93,7 @@
 	    <div class="container"> 
 
 	      <ul class="nav"> 
-	        <li class="active"><a href="#">About</a></li> 
+	        <li class="categories"><a href="#">Categories</a></li> 
         </ul>
       </div>  
 	  </div> 
@@ -108,7 +117,9 @@
         window.categories = new CategoryCollection();
         category = new CategoryView({collection: window.categories });
         $("#categorymodal").html(category.render().el);
-
+        $(".categories a").click(function(e){
+          category.show();
+        });
         
         shoppingView = new ShoppingView({categories: window.categories });
         $("#app").html(shoppingView.render().el);

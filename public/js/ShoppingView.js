@@ -4,25 +4,23 @@ window.ShoppingView = Backbone.View.extend({
     'click .addtolist': 'addToList'
   },
   initialize: function() {
-    _.bindAll(this,'render','addToList','addItem','shopItemView');
+    _.bindAll(this,'render','addToList','shopItemView');
     this.collection = new ShoppingList();
-    this.collection.bind('add',this.addItem);
-    this.collection.bind('fetch',this.render);
+    this.collection.bind('reset',this.render);
+    this.collection.bind('add',this.render);
     this.collection.fetch();
     this.options.categories.bind('all',this.render);
-    this.collection.create({name: "pickles"});
+//    this.collection.create({name: "pickles"});
   },
 
   addToList: function() {
     var items = _.compact($(this.el).find('.listbox').val().split('\n'));
     _.each(items,function(i) {
-      this.collection.create({name: i });
+      this.collection.create({name: i , category: null});
     },this);
   },
 
-  addItem: function(m) {
-    this.shopItemView(m);
-  },
+
  
   shopItemView: function(m) {
     viewModels = { model: m,

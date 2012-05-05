@@ -1,5 +1,5 @@
 window.ShopItem = Backbone.Model.extend({
-  idAddtribute: "_id",
+  idAttribute: "_id",
   url : function() {
     return this.get('_id') ? '/shopitem/' + this.get('_id') : '/shopitems';
   },
@@ -8,6 +8,12 @@ window.ShopItem = Backbone.Model.extend({
     return {
       category: null 
     };
+  },
+
+  parse: function(response) {
+    response.category = new Category(response.category);
+    return response;
+
   }
 
 });
