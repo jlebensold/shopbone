@@ -27,6 +27,10 @@ window.ShoppingList = Backbone.Collection.extend({
     return new ShoppingList(this.where({purchased: false}));
   },
 
+  purchased: function() {
+    return new ShoppingList(this.where({purchased: true}));
+  },
+
   productCategories: function() {
     var categories = [];
     

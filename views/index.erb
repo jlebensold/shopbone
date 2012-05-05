@@ -18,6 +18,7 @@
 		<script src="js/vendor/backbone.min.js"></script> 
 
     
+    <script src="js/AppRouter.js"></script> 
     <!-- models: -->
     <script src="js/Category.js"></script> 
     <script src="js/ShopItem.js"></script> 
@@ -29,7 +30,7 @@
 
     <script type="text/template" id="categoryView">
      <div class="modal-header">
-        <button class="close" data-dismiss="modal">×</button>
+        <button class="close">×</button>
         <h3>Manage Categories</h3>
       </div>
       <div class="modal-body">
@@ -65,7 +66,9 @@
 
       <div class="btn-group"> 
         <a class="delete btn btn-danger" href="#">x</a>
-        <a class="purchase btn" href="#"><i class="icon-star-empty "></i></a>
+        <%% if (model.get('purchased') == false) { %>
+            <a class="purchase btn" href="#"><i class="icon-star-empty "></i></a>
+        <%% } %>
         <a class="btn dropdown-toggle btn-primary" data-toggle="dropdown" href="#">
           <%%= (model.get('category') && model.get('category').get('name').length > 0) ? model.get('category').get('name') : 'no category' %>  
         </a>
@@ -93,10 +96,10 @@
 	    <div class="container"> 
 
 	      <ul class="nav"> 
-	        <li class="home active"><a class="active" href="#">Home</a></li> 
-          <li class="showpurchased"><a href="#">Purchased</a></li>
+	        <li class="home active"><a class="active" href="/#home">Home</a></li> 
+          <li class="showpurchased"><a href="/#purchased">Purchased</a></li>
           <li class="divider-vertical"></li>
-	        <li class="categories"><a href="#">Categories</a></li> 
+	        <li class="categories"><a href="/#categories">Categories</a></li> 
         </ul>
       </div>  
 	  </div> 
@@ -115,15 +118,9 @@
 
     <script>
       $(function() {
-        window.categories = new CategoryCollection();
-        category = new CategoryView({collection: window.categories });
-        $("#categorymodal").html(category.render().el);
-        $(".categories a").click(function(e){
-          category.show();
-        });
-        
-        shoppingView = new ShoppingView({categories: window.categories });
-        $("#app").html(shoppingView.render().el);
+
+        router = new AppRouter();
+        Backbone.history.start();
       });
     </script>
 

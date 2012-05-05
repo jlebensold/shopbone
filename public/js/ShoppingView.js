@@ -4,12 +4,15 @@ window.ShoppingView = Backbone.View.extend({
     'click .addtolist': 'addToList'
   },
   initialize: function() {
-    _.bindAll(this,'render','addToList','shopItemView');
+    this.showToBuy = true;
+    _.bindAll(this,'render','addToList','shopItemView','showPurchased','showHome');
     this.collection = new ShoppingList();
     this.collection.bind('reset',this.render);
     this.collection.bind('add',this.render);
     this.collection.fetch();
     this.options.categories.bind('all',this.render);
+    
+
   },
 
   addToList: function() {
@@ -21,7 +24,15 @@ window.ShoppingView = Backbone.View.extend({
     },this);
   },
 
+  showHome: function() {
+    this.showToBuy = true;
+    this.collection.fetch();
+  },
 
+  showPurchased: function() { 
+    this.showToBuy = false;
+    this.collection.fetch();
+  },
  
   shopItemView: function(m) {
     viewModels = { model: m,
@@ -33,9 +44,15 @@ window.ShoppingView = Backbone.View.extend({
   render: function() {
     $(this.el).html($(this.template).html());
     var l = $(this.el).find(".shoppinglist");
-    this.collection.toBuy().each(function(i) {
-      this.shopItemView(i);
-    },this);
+    if (this.showToBuy){
+      this.collection.toBuy().each(function(i) {
+        this.shopItemView(i);
+      },this);
+    } else {
+      this.collection.purchased().each(function(i) {
+        this.shopItemView(i);
+      },this);
+    }
     return this;
   }
 
